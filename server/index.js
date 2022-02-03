@@ -44,14 +44,12 @@ app.post('/data2', (req, res) => {
 
 app.get('/data', (req, res) => {
     //const user = req.query.user
-    console.log(user)
     var qry = "select * from data;"
     db.query(qry, (err, result) => {
         if (err) {
             console.log("err")
         }
         else {
-            console.log("result")
             return res.send(result)
         }
     })
