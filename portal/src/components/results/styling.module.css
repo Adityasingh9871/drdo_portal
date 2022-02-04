@@ -5,3 +5,34 @@
     top: 10vh;
     background-color: rgba(217, 231, 240, 0.644);
 }
+
+.searchbar{
+    background-color: transparent;
+    height: 5rem;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+}
+.search{
+    height: 50%;
+    width: 40vw;
+}
+
+.searchbtn{
+    width: fit-content;
+    height: 50%;
+    padding: 4px;
+    align-content: center;
+    background-color: rgb(70, 201, 224);
+    border-top-right-radius: 5%;
+    border-bottom-right-radius: 5%;
+    cursor: pointer;
+}
+
+.box1{
+    width: 70vw;
+    height: 100vh;
+    background-color: rgb(255, 255, 255);
+    position: absolute;
+    right: 0;
+}
