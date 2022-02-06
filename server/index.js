@@ -43,11 +43,11 @@ app.post('/data2', (req, res) => {
 
 
 app.get('/data', (req, res) => {
-    //const user = req.query.user
-    var qry = "select * from data;"
-    db.query(qry, (err, result) => {
+    const item = req.query.item
+    var qry = "select * from data where author like '%"+item+"%';"
+    db.query(qry,[item], (err, result) => {
         if (err) {
-            console.log("err")
+            console.log(err)
         }
         else {
             return res.send(result)
