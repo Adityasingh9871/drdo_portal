@@ -31,12 +31,38 @@
 
 .box1{
     width: 80vw;
-    height: 100vh;
+    height: fit-content;
     background-color: rgb(255, 255, 255);
     position: absolute;
     right: 0;
+    padding: 1rem;
+    margin: 1rem;
 }
 
 .databox1{
     height: 4rem;
+}
+
+.results{
+    height: fit-content;
+    background-color: rgb(186, 186, 197);
+    padding: 1rem;
+}
+
+.page_no_box{
+    display: flex;
+    flex-direction: row;
+    align-content: space-evenly;
+    justify-content: space-evenly;
+    margin: 1rem;
+
+}
+
+.pagebtn{
+    width: 4rem;
+    background-color: rgb(44, 173, 212);
+    padding: 1rem;
+    border-radius: .5rem;
+    text-align: center;
+    cursor: pointer;
 }

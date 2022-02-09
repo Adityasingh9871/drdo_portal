@@ -44,7 +44,20 @@ app.post('/data2', (req, res) => {
 
 app.get('/data', (req, res) => {
     const item = req.query.item
-    var qry = "select * from data where author like '%"+item+"%';"
+    const counter=req.query.counter
+    var qry = "select * from data where author like '%"+item+"%' or title like '%"+item+"%' order by author limit 15 offset "+counter+" ;"
+    db.query(qry,[counter], (err, result) => {
+        if (err) {
+            console.log(err)
+        }
+        else {
+            return res.send(result)
+        }
+    })
+})
+app.get('/data_default', (req, res) => {
+    const item = req.query.item
+    var qry = "select * from data order by year desc limit 15 ;"
     db.query(qry,[item], (err, result) => {
         if (err) {
             console.log(err)

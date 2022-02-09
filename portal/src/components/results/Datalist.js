@@ -8,7 +8,7 @@ export default function Datalist(props) {
                 <div className={style.databox2}>
                     <a href={props.url}>{props.title}</a>
                 </div>
-                <div className={style.databox3}>Author : {props.author}  || date : {props.year}  ||  publication : {props.publication}</div>
+                <div className={style.databox3}>{"Author : "+props.author}  || {"Year : "+props.year}  ||  {"Publication : "+props.publication}</div>
             </div>
         </div>
     )
