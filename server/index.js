@@ -23,19 +23,17 @@ const db = mysql.createConnection({
 
 
 
-app.post('/data2', (req, res) => {
-    const user = req.body.user
-    const id = req.body.product_id
-    const pname = req.body.product_name
-    const stock = req.body.stock
-    var qry = "select * from data;"
+app.get('/data2', (req, res) => {
+    const item = req.query.item
+    const counter=req.query.counter
+    var qry = "select * from data where author like '%"+item+"%' or title like '%"+item+"%' order by author limit 15 offset "+counter+" ;"
     db.query(qry, (err, result) => {
         if (err)
         {
             console.log(err)
         }
         else {
-            return res.send("hello")
+            return res.send(result)
         }
     })
 
@@ -44,9 +42,21 @@ app.post('/data2', (req, res) => {
 
 app.get('/data', (req, res) => {
     const item = req.query.item
-    const counter=req.query.counter
-    var qry = "select * from data where author like '%"+item+"%' or title like '%"+item+"%' order by author limit 15 offset "+counter+" ;"
-    db.query(qry,[counter], (err, result) => {
+    var qry = "select * from data where author like '%"+item+"%' or title like '%"+item+"%' order by author limit 15  ;"
+    db.query(qry, (err, result) => {
+        if (err) {
+            console.log(err)
+        }
+        else {
+            return res.send(result)
+        }
+    })
+})
+
+app.get('/total_pages', (req, res) => {
+    const item = req.query.item
+    var qry = "select count(*) as total from data where author like '%"+item+"%' or title like '%"+item+"%' ;"
+    db.query(qry, (err, result) => {
         if (err) {
             console.log(err)
         }

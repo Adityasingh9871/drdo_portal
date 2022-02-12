@@ -53,16 +53,23 @@
     display: flex;
     flex-direction: row;
     align-content: space-evenly;
-    justify-content: space-evenly;
+    justify-content: center;
     margin: 1rem;
+    background-color: aqua;
 
 }
 
-.pagebtn{
-    width: 4rem;
-    background-color: rgb(44, 173, 212);
-    padding: 1rem;
-    border-radius: .5rem;
-    text-align: center;
+.page_no{
+    margin: .2rem;
     cursor: pointer;
+}
+
+.filter_box{
+    width: 20vw;
+    height: 70vh;
+    background-color: rgb(163, 162, 162);
+    position: absolute;
+    left: 0;
+    padding: 1rem;
+    margin: 1rem;
 }
