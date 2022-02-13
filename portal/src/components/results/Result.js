@@ -2,6 +2,7 @@ import React,{useState,useEffect} from 'react'
 import style from './styling.module.css'
 import axios from "axios"
 import Datalist from './Datalist'
+import ReactPaginate from 'react-paginate'
 
 export default function Result() {
 
@@ -35,37 +36,20 @@ export default function Result() {
     }
 
     useEffect(() => {
-        axios.get(`http://localhost:3001/data_default`,{
-            params:{item:to_be_searched}
-        })
+        axios.get(`http://localhost:3001/data_default`)
           .then(res => {
-            const data = res.data;
-            setsearchresult(data)
+            const data1 = res.data;
+            setsearchresult(data1)
             console.log(searchresult)
           })
 
-          axios.get(`http://localhost:3001/total_pages`,{
-            params:{item:to_be_searched}
-        })
+          axios.get(`http://localhost:3001/total_pages_default`)
           .then(res => {
-            const data = res.data;
-            setno_of_pages(Math.ceil(data[0].total/15))
-            console.log(no_of_pages)
+            const data2 = res.data;
+            setno_of_pages(Math.ceil(data2[0].total/15))
+            console.log("pages="+no_of_pages)
           })
     },[])
-
-    const topage=(x)=>{
-        setcounter_default(15*x)
-        axios.get(`http://localhost:3001/data2`,{
-            params:{item:to_be_searched,counter:counter_default}
-            
-        })
-          .then(res => {
-            const data = res.data;
-            setsearchresult(data)
-            console.log(searchresult)
-          })
-    }
 
     const newest=()=>{
         
@@ -81,6 +65,22 @@ export default function Result() {
         console.log("oldest")
         console.log(searchresult)
     }
+
+    const changepage=({selected})=>{
+        setcounter_default(selected*15)
+        axios.get(`http://localhost:3001/data2`,{
+            params:{item:to_be_searched,counter:counter_default}
+            
+        })
+          .then(res => {
+            const data3 = res.data;
+            setsearchresult(data3)
+            console.log(searchresult)
+          })
+        console.log("selected="+selected)
+    }
+
+    
     
 
     return (
@@ -111,9 +111,21 @@ export default function Result() {
                     </div>
 
                     <div className={style.page_no_box}>
-                    {[...Array(no_of_pages)].map((_,i)=>
-                            <div className={style.page_no} onClick={()=>topage(i)}>{i+1}</ div>
-                        )}  
+
+                    <ReactPaginate
+                    breakLabel='...'
+                    nextLabel="Next >"
+                    previousLabel="< Prev"
+                    pageCount={no_of_pages}
+                    onPageChange={changepage}
+                    containerClassName={style.paginationbtn}
+                    previousLinkClassName={style.previousbtn}
+                    nextLinkClassName={style.nextbtn}
+                    disabledClassName={style.disable}
+                    activeClassName={style.activebtn}
+                    disableInitialCallback={false}
+                    />
+
                     </div>
                 </div>
             </div>
