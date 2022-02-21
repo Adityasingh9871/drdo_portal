@@ -3,6 +3,7 @@ import style from './styling.module.css'
 import axios from "axios"
 import Datalist from './Datalist'
 import ReactPaginate from 'react-paginate'
+import Togglebtn from 'react-toggle-button'
 
 export default function Result() {
 
@@ -10,6 +11,8 @@ export default function Result() {
     const [to_be_searched, setto_be_searched] = useState('')
     const [counter_default, setcounter_default] = useState(0)
     const [no_of_pages, setno_of_pages] = useState(0)
+    const [newest_toggle, setnewest_toggle] = useState(false)
+    const [oldest_toggle, setoldest_toggle] = useState(false)
 
     const get_serach_result=()=>{
         axios.get(`http://localhost:3001/data`,{
@@ -53,7 +56,6 @@ export default function Result() {
 
     const newest=()=>{
         
-        //searchresult.sort((a,b)=>a.year-b.year)
         setsearchresult(data=>[...data.sort((a,b)=>b.year-a.year)])
         console.log("newest")
         console.log(searchresult)
@@ -61,9 +63,19 @@ export default function Result() {
     const oldest=()=>{
         
         setsearchresult(data=>[...data.sort((a,b)=>a.year-b.year)])
-
         console.log("oldest")
         console.log(searchresult)
+    }
+
+    const a_z=()=>{
+        setsearchresult(data=>[...data.sort((a,b)=>a.title.toLowerCase().localeCompare(b.title.toLowerCase()))])
+        console.log("a-z")
+        
+    }
+    const z_a=()=>{
+        setsearchresult(data=>[...data.sort((a,b)=>b.title.toLowerCase().localeCompare(a.title.toLowerCase()))])
+        console.log("z-a")
+       
     }
 
     const changepage=({selected})=>{
@@ -80,6 +92,11 @@ export default function Result() {
         console.log("selected="+selected)
     }
 
+    const handle_key_press=(event)=>{
+        if(event.key==="Enter")
+        get_serach_result()
+        
+    }
     
     
 
@@ -91,8 +108,13 @@ export default function Result() {
 
                     <div>
                         <div>sort by year</div>
-                        <div onClick={newest}>newest</div>
-                        <div onClick={oldest}>oldest</div>
+                        <li onClick={newest}>newest<Togglebtn value={ newest_toggle || false } onToggle={(value) => {setnewest_toggle(!value) }} /></li>
+                        <li onClick={oldest}>oldest<Togglebtn value={ oldest_toggle || false } onToggle={(value) => {setoldest_toggle(!value) }} /></li>
+                        
+
+                        <div>sort by alphabet</div>
+                        <li onClick={a_z}>A-Z</li>
+                        <li onClick={z_a}>Z-A</li>
                     </div>
                 </div>
 
@@ -100,7 +122,7 @@ export default function Result() {
                 <div className={style.box1}>
 
                     <div className={style.searchbar}>
-                        <input type="text" className={style.search} onChange={(e)=>setto_be_searched(e.target.value)} placeholder="Search.."/>
+                        <input type="text" className={style.search} onChange={(e)=>setto_be_searched(e.target.value)} onKeyPress={(e)=>handle_key_press(e)} placeholder="Search.."/>
                         <div className={style.searchbtn} onClick={get_serach_result} >search</div>
                     </div>
 
