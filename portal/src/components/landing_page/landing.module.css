@@ -1,0 +1,20 @@
+.searchbox{
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.searchbar{
+    width: 40vw;
+    height: 3rem;
+    border-radius: .4rem;
+}
+
+.searchbtn{
+    height: 3rem;
+    width: 7rem;
+    border-radius: .4rem;
+}

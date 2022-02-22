@@ -4,17 +4,20 @@ import axios from "axios"
 import Datalist from './Datalist'
 import ReactPaginate from 'react-paginate'
 import Togglebtn from 'react-toggle-button'
+import {useLocation} from 'react-router-dom';
 
 export default function Result() {
 
-    const [searchresult, setsearchresult] = useState([{}])
-    const [to_be_searched, setto_be_searched] = useState('')
-    const [counter_default, setcounter_default] = useState(0)
-    const [no_of_pages, setno_of_pages] = useState(0)
-    const [newest_toggle, setnewest_toggle] = useState(false)
-    const [oldest_toggle, setoldest_toggle] = useState(false)
+    const location = useLocation();  //to access params from home.js
 
-    const get_serach_result=()=>{
+    const [searchresult, setsearchresult] = useState([{}])    //data set returned from db are stored here
+    const [to_be_searched, setto_be_searched] = useState(location.state.item) //search key 
+    const [counter_default, setcounter_default] = useState(0)  //page counter
+    const [no_of_pages, setno_of_pages] = useState(0)          //total of pages
+    const [newest_toggle, setnewest_toggle] = useState(false)  //filter
+    const [oldest_toggle, setoldest_toggle] = useState(false)  //filter
+
+    const get_serach_result=()=>{             //function to fetch results and total pages from db
         axios.get(`http://localhost:3001/data`,{
             params:{item:to_be_searched}
         })
@@ -38,48 +41,53 @@ export default function Result() {
 
     }
 
-    useEffect(() => {
-        axios.get(`http://localhost:3001/data_default`)
+    useEffect(() => {                                    //loads at starting time only once
+        axios.get(`http://localhost:3001/data`,{
+            params:{item:to_be_searched}
+        })
           .then(res => {
-            const data1 = res.data;
-            setsearchresult(data1)
+            const data = res.data;
+            setsearchresult(data)
             console.log(searchresult)
           })
 
-          axios.get(`http://localhost:3001/total_pages_default`)
+
+        axios.get(`http://localhost:3001/total_pages`,{
+            params:{item:to_be_searched}
+        })
           .then(res => {
-            const data2 = res.data;
-            setno_of_pages(Math.ceil(data2[0].total/15))
-            console.log("pages="+no_of_pages)
+            const data = res.data;
+            setno_of_pages(Math.ceil(data[0].total/15))
+            console.log(no_of_pages)
           })
     },[])
 
-    const newest=()=>{
+    const newest=()=>{            //filter
         
         setsearchresult(data=>[...data.sort((a,b)=>b.year-a.year)])
         console.log("newest")
         console.log(searchresult)
     }
-    const oldest=()=>{
+    const oldest=()=>{             //filter
         
         setsearchresult(data=>[...data.sort((a,b)=>a.year-b.year)])
         console.log("oldest")
         console.log(searchresult)
     }
 
-    const a_z=()=>{
+    const a_z=()=>{                 //filter
         setsearchresult(data=>[...data.sort((a,b)=>a.title.toLowerCase().localeCompare(b.title.toLowerCase()))])
         console.log("a-z")
         
     }
-    const z_a=()=>{
+    const z_a=()=>{                       //filter
         setsearchresult(data=>[...data.sort((a,b)=>b.title.toLowerCase().localeCompare(a.title.toLowerCase()))])
         console.log("z-a")
        
     }
 
-    const changepage=({selected})=>{
-        setcounter_default(selected*15)
+    const changepage=({selected})=>{                //function to get to the selected page
+        setcounter_default(selected*15)      
         axios.get(`http://localhost:3001/data2`,{
             params:{item:to_be_searched,counter:counter_default}
             
@@ -94,8 +102,7 @@ export default function Result() {
 
     const handle_key_press=(event)=>{
         if(event.key==="Enter")
-        get_serach_result()
-        
+        get_serach_result()  
     }
     
     
@@ -103,7 +110,6 @@ export default function Result() {
     return (
         <div>
             <div className={style.container} >
-
                 <div className={style.filter_box}>
 
                     <div>
@@ -122,7 +128,7 @@ export default function Result() {
                 <div className={style.box1}>
 
                     <div className={style.searchbar}>
-                        <input type="text" className={style.search} onChange={(e)=>setto_be_searched(e.target.value)} onKeyPress={(e)=>handle_key_press(e)} placeholder="Search.."/>
+                        <input type="text" className={style.search} onChange={(e)=>setto_be_searched(e.target.value)} onKeyPress={(e)=>handle_key_press(e)} placeholder={to_be_searched}/>
                         <div className={style.searchbtn} onClick={get_serach_result} >search</div>
                     </div>
 
