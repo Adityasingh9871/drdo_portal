@@ -34,7 +34,7 @@ app.get('/data2', (req, res) => {
 
 app.get('/data', (req, res) => {
     const item = req.query.item
-    var qry = "select * from data where author like '%"+item+"%' or title like '%"+item+"%' order by author limit 15  ;"
+    var qry = "select * from data where author like '%"+item+"%' or title like '%"+item+"%' order by author ;"
     db.query(qry, (err, result) => {
         if (err) {
             console.log(err)
