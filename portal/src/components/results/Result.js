@@ -28,7 +28,9 @@ export default function Result(props) {
     const [currentItems, setcurrentItems] = useState([{}])
     const [pagecount, setpagecount] = useState(0)
     const [itemOffset, setitemOffset] = useState(0)
-    const [rerender, setrerender] = useState(false)
+    const [endset, setendset] = useState(15)
+    const [pages, setpages] = useState([])
+    const [temppages, settemppages] = useState([])
 
     
 
@@ -41,7 +43,7 @@ export default function Result(props) {
           .then(res => {
             const data = res.data;
             setsearchresult(data)
-            console.log(searchresult)
+            //console.log(searchresult)
           }).catch((err)=>{
               console.log("Error in fetch");
           })
@@ -83,7 +85,9 @@ export default function Result(props) {
           .then(res => {
             const data = res.data;
             setno_of_pages(Math.ceil(data[0].total/15))
-            console.log("page here"+no_of_pages)
+            //console.log("page here"+no_of_pages)
+            for(let i=1;i<=no_of_pages;i++)
+            settemppages(...temppages,i)
           })
 
         //console.log(searchresult)
@@ -96,12 +100,24 @@ export default function Result(props) {
 
     useEffect(() => {
         console.log("Here: ", searchresult);
-        setcurrentItems(searchresult.slice(itemOffset,15))
+        setcurrentItems(searchresult.slice(itemOffset,endset))
         console.log(currentItems)
+        //changepage();
+
+            
+            //setpages(temppages)
+            //console.log("pages="+pages)
 
     }, [searchresult])
-    
 
+    useEffect(() => {
+        
+        console.log("temp="+temppages)
+    }, [temppages])
+
+
+    
+    
 
     
     const newest=()=>{            //filter
@@ -141,11 +157,17 @@ export default function Result(props) {
     }
 
     const changepage=({selected})=>{                //function to get to the selected page
-        setcounter_default(selected*15)  
-        setitemOffset((selected*15)%searchresult.length)    
-        console.log("itemoffset"+itemOffset)
-        const endoffset=itemOffset+15;
-        setcurrentItems(searchresult.slice(itemOffset,endoffset))
+        //setcounter_default(selected*15)
+         
+        //setitemOffset(((selected)*15)%searchresult.length)    
+        setitemOffset(((selected)*15))  
+        console.log(selected)   
+        //setendset(itemOffset+15)
+        
+        console.log("start"+selected*15)
+        console.log("end off set"+((selected+1)*15))
+        setcurrentItems(searchresult.slice(selected*15,selected*15+15))
+        console.log(currentItems)
         setpagecount(Math.ceil(searchresult.length/15))
         
          
@@ -228,6 +250,13 @@ export default function Result(props) {
                             </div>
 
                             <div className={style.page_no_box}>
+
+                                {/* {
+                                    pages.map((id)=>{
+                                        <li>id</li>
+        
+                                    })
+                                } */}
 
                                 <ReactPaginate
                                 breakLabel='...'

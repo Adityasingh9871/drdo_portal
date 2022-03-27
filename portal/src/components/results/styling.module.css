@@ -58,9 +58,12 @@
     flex-direction: row;
     align-content: space-evenly;
     justify-content: center;
-    margin: 1rem;
+    margin: 0rem;
     background-color: rgb(255, 255, 255);
     height: fit-content;
+    position: absolute;
+    background-color: pink;
+    
 
 }
 
