@@ -10,11 +10,13 @@
 .searchbar{
     width: 40vw;
     height: 3rem;
-    border-radius: .4rem;
+    border-radius: .3rem;
+
 }
 
 .searchbtn{
     height: 3rem;
-    width: 7rem;
+    width: 4rem;
     border-radius: .4rem;
+    margin-left: 10px;
 }

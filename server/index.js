@@ -15,21 +15,21 @@ const db = mysql.createConnection({
 })
 
 
-app.get('/data2', (req, res) => {
-    const item = req.query.item
-    const counter=req.query.counter
-    var qry = "select * from data where author like '%"+item+"%' or title like '%"+item+"%' order by author limit 15 offset "+counter+" ;"
-    db.query(qry, (err, result) => {
-        if (err)
-        {
-            console.log(err)
-        }
-        else {
-            return res.send(result)
-        }
-    })
+// app.get('/data2', (req, res) => {
+//     const item = req.query.item
+//     const counter=req.query.counter
+//     var qry = "select * from data where author like '%"+item+"%' or title like '%"+item+"%' order by author limit 15 offset "+counter+" ;"
+//     db.query(qry, (err, result) => {
+//         if (err)
+//         {
+//             console.log(err)
+//         }
+//         else {
+//             return res.send(result)
+//         }
+//     })
 
-})
+// })
 
 
 app.get('/data', (req, res) => {
@@ -38,6 +38,7 @@ app.get('/data', (req, res) => {
     db.query(qry, (err, result) => {
         if (err) {
             console.log(err)
+            return res.status(404).send("nothing found")
         }
         else {
             return res.send(result)
@@ -51,6 +52,7 @@ app.get('/total_pages', (req, res) => {
     db.query(qry, (err, result) => {
         if (err) {
             console.log(err)
+            return res.send(404)
         }
         else {
             return res.send(result)
@@ -58,30 +60,30 @@ app.get('/total_pages', (req, res) => {
     })
 })
 
-app.get('/total_pages_default', (req, res) => {
-    const item = req.query.item
-    var qry = "select count(*) as total from data ;"
-    db.query(qry, (err, result) => {
-        if (err) {
-            console.log(err)
-        }
-        else {
-            return res.send(result)
-        }
-    })
-})
-app.get('/data_default', (req, res) => {
-    const item = req.query.item
-    var qry = "select * from data order by year desc limit 15 ;"
-    db.query(qry,[item], (err, result) => {
-        if (err) {
-            console.log(err)
-        }
-        else {
-            return res.send(result)
-        }
-    })
-})
+// app.get('/total_pages_default', (req, res) => {
+//     const item = req.query.item
+//     var qry = "select count(*) as total from data ;"
+//     db.query(qry, (err, result) => {
+//         if (err) {
+//             console.log(err)
+//         }
+//         else {
+//             return res.send(result)
+//         }
+//     })
+// })
+// app.get('/data_default', (req, res) => {
+//     const item = req.query.item
+//     var qry = "select * from data order by year desc limit 15 ;"
+//     db.query(qry,[item], (err, result) => {
+//         if (err) {
+//             console.log(err)
+//         }
+//         else {
+//             return res.send(result)
+//         }
+//     })
+// })
 
 
 

@@ -24,7 +24,7 @@ export default function Home() {
             <div className={style.searchbox}>
                 <div>
                     <input type="search" placeholder="search"  className={style.searchbar} onChange={(e)=>setsearch_param(e.target.value)} onKeyPress={(e)=>handle_key_press(e)}></input>
-                    <button  className={style.searchbtn} onClick={routeChange} >search</button>
+                    <button  className={style.searchbtn} onClick={routeChange} >GO</button>
                 </div>
             
             </div>

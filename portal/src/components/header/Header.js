@@ -6,8 +6,10 @@ export default function Header(props) {
     return (
         <div>
             <div className={style.container}>
-                <img src={drdo_logo} className={style.logo} />
-                <div className={style.title}>
+                <div className={style.logobox}>
+                    <img src={drdo_logo} className={style.logo} />
+                </div>
+                <div className={style.title}>    
                     <div className={style.tag1}>DRDO ARTICLES AND JOURNALS</div>
                 </div>
             </div>

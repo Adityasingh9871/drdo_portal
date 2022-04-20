@@ -1,3 +1,4 @@
+
 .container{
     width: 100%;
     height: 100%;
@@ -7,26 +8,38 @@
 }
 
 .searchbar{
-    background-color: transparent;
-    height: 5rem;
-    display: flex;
-    justify-content: left;
-    align-items: center;
+    height: 3.5rem;
+    width: 50vw;
+    border: 1px solid;
+    border-radius: 2rem;
+    position: relative;
+    
 }
 .search{
-    height: 50%;
-    width: 40vw;
+    position: absolute;
+    top: 50%;
+    width: 90%;
+    transform: translateY(-50%);
+    margin-left: 1rem;
+    font-size: 2.5rem;
+    outline: none;
+    border: none;
+    background-color: transparent;
+    
 }
 
-.searchbtn{
-    width: 5rem;
-    height: 50%;
-    padding: 4px;
-    align-content: center;
-    background-color: rgb(70, 201, 224);
-    border-top-right-radius: 5%;
-    border-bottom-right-radius: 5%;
-    cursor: pointer;
+
+
+
+.searchicon{
+   position: absolute;
+   right: 0;
+   height: 3.5rem;
+   top: 50%;
+   transform: translateY(-50%);
+   margin-right: 1rem;
+   height: 70%;
+
 }
 
 .box1{
@@ -62,8 +75,11 @@
     background-color: rgb(255, 255, 255);
     height: fit-content;
     position: absolute;
-    background-color: pink;
-    
+    background-color: rgb(255, 255, 255);
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    padding-bottom: 2rem;
 
 }
 
@@ -131,4 +147,60 @@
     width: 40px;
     margin-top: .2rem;
     cursor: pointer;
+}
+
+.sby1{
+    font-size: 1.3rem;
+    font-family: "poppins";
+    text-transform: capitalize;
+}
+
+.sba1{
+    font-size: 1.3rem;
+    margin-top: 1rem;
+    font-family: "poppins";
+    text-transform: capitalize;
+}
+
+.sbauth{
+    font-size: 1rem;
+    margin-top: 1rem;
+    cursor: pointer;
+    font-family: "poppins";
+    text-transform: capitalize;
+    border-radius: .5rem;
+    padding: .2rem;
+}
+
+.sbauth:hover{
+    background-color: rgb(201, 204, 204);
+
+}
+
+.sbpubl{
+    font-size: 1rem;
+    margin-top: 1rem;
+    cursor: pointer;
+    font-family: "poppins";
+    text-transform: capitalize;
+    border-radius: .5rem;
+    padding: .2rem;
+}
+
+.sbpubl:hover{
+    background-color: rgb(201, 204, 204);
+
+}
+
+.i1{
+    cursor: pointer;
+    font-family: "poppins";
+    text-transform: capitalize;
+    border-radius: .5rem;
+    padding: .2rem;
+}
+
+.i1:hover{
+    background-color: rgb(201, 204, 204);
+
 }

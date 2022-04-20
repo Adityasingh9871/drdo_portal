@@ -13,7 +13,11 @@ import facebook from '../../assets/facebook.png'
 import instagram from '../../assets/instagram.png'
 import linkedin from '../../assets/linkedin.png'
 import twitter from '../../assets/twitter.png'
+import search from '../../assets/search.png'
+import PDFViewer from 'pdf-viewer-reactjs'
 
+//import { Document, Page,pdfjs } from 'react-pdf';
+//pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 export default function Result(props) {
 
     const location = useLocation();  //to access params from home.js
@@ -31,6 +35,24 @@ export default function Result(props) {
     const [endset, setendset] = useState(15)
     const [pages, setpages] = useState([])
     const [temppages, settemppages] = useState([])
+    const [iserror, setiserror] = useState(1)
+
+    // const [numPages, setnumPages] = useState(null)
+    // const [pageNumber, setpageNumber] = useState(1)
+
+    // const onDocumentLoadSuccess = ({ numPages }) => {
+	// 	setnumPages({numPages});
+	// };
+
+    // const goToPrevPage = () =>{
+    //     setpageNumber(pageNumber-1)
+    // }
+		
+	// const goToNextPage = () =>{
+    //     setpageNumber(pageNumber+1)
+    // }
+    
+
 
     
 
@@ -45,7 +67,8 @@ export default function Result(props) {
             setsearchresult(data)
             //console.log(searchresult)
           }).catch((err)=>{
-              console.log("Error in fetch");
+            if(err.response.status==404)
+            setiserror(404);
           })
 
 
@@ -70,10 +93,10 @@ export default function Result(props) {
           .then(res => {
             const data1 = res.data;
             setsearchresult(data1) 
-            
             //console.log(searchresult)
           }).catch((err)=>{
-              console.log("Error in fetch");
+              if(err.response.status==404)
+              setiserror(404);
           })
 
 
@@ -160,8 +183,8 @@ export default function Result(props) {
         //setcounter_default(selected*15)
          
         //setitemOffset(((selected)*15)%searchresult.length)    
-        setitemOffset(((selected)*15))  
-        console.log(selected)   
+        setitemOffset(((selected)*15)%searchresult.length)  
+        console.log(selected)
         //setendset(itemOffset+15)
         
         console.log("start"+selected*15)
@@ -191,10 +214,38 @@ export default function Result(props) {
     const handleChange = (event, newValue) => {
         setvalue1(newValue)
     };
+
+    if(iserror==404)
+    {
+       var errorDisplay=<div>Nothing found</div> 
+       var pagination=<div></div>
+    }
+    
+    else
+    {
+        var errorDisplay=currentItems.map((data)=>(<Datalist key={data.id} title={data.title} url={data.url} author={data.author} year={data.year} publication={data.publication} />))
+        var pagination=<div>
+        <ReactPaginate
+        breakLabel='...'
+        nextLabel="Next >"
+        previousLabel="< Prev"
+        pageCount={no_of_pages}
+        onPageChange={changepage}
+        containerClassName={style.paginationbtn}
+        previousLinkClassName={style.previousbtn}
+        nextLinkClassName={style.nextbtn}
+        disabledClassName={style.disable}
+        activeClassName={style.activebtn}
+        disableInitialCallback={false}
+        />
+
+    </div>
+    }
+
     
 
     return (
-        <div>
+        <div >
 
             <div className={style.socialbox}>
                 <img src={facebook} alt=' here' className={style.img1} />
@@ -216,21 +267,21 @@ export default function Result(props) {
                 
                 <TabPanel value="1">
 
-                        <div className={style.container} >
+                    <div className={style.container} >
                         <div className={style.filter_box}>
 
                             <div>
-                                <div>sort by year</div>
-                                <li onClick={newest}>newest</li>
-                                <li onClick={oldest}>oldest</li>
+                                <div className={style.sby1}>sort by year</div>
+                                <li onClick={newest} className={style.i1}>newest</li>
+                                <li onClick={oldest} className={style.i1}>oldest</li>
                                 
 
-                                <div>sort by alphabet</div>
-                                <li onClick={a_z}>A-Z</li>
-                                <li onClick={z_a}>Z-A</li>
+                                <div className={style.sba1}>sort by alphabet</div>
+                                <li onClick={a_z} className={style.i1}>A-Z</li>
+                                <li onClick={z_a} className={style.i1}>Z-A</li>
 
-                                <div onClick={sort_author}>sort by Author</div>
-                                <div onClick={sort_publication}>sort by Publication House</div>
+                                <div onClick={sort_author} className={style.sbauth}>sort by Author</div>
+                                <div onClick={sort_publication} className={style.sbpubl}>sort by Publication House</div>
                             </div>
                         </div>
 
@@ -238,40 +289,20 @@ export default function Result(props) {
                         <div className={style.box1}>
 
                             <div className={style.searchbar}>
-                                <input type="text" className={style.search} onChange={(e)=>setto_be_searched(e.target.value)} onKeyPress={(e)=>handle_key_press(e)} placeholder={to_be_searched}/>
-                                <div className={style.searchbtn} onClick={get_serach_result} >search</div>
+                                <input type="text" className={style.search} onChange={(e)=>setto_be_searched(e.target.value)} onKeyPress={(e)=>handle_key_press(e)} placeholder={to_be_searched}></input>
+                                <img src={search} className={style.searchicon} onClick={get_serach_result} /> 
+                                
                             </div>
 
 
                             <div className={style.results}>
-                                {currentItems.map((data)=>(
-                                    <Datalist key={data.id} title={data.title} url={data.url} author={data.author} year={data.year} publication={data.publication} />
-                                ))}
+                                {errorDisplay}
                             </div>
 
                             <div className={style.page_no_box}>
 
-                                {/* {
-                                    pages.map((id)=>{
-                                        <li>id</li>
-        
-                                    })
-                                } */}
-
-                                <ReactPaginate
-                                breakLabel='...'
-                                nextLabel="Next >"
-                                previousLabel="< Prev"
-                                pageCount={no_of_pages}
-                                onPageChange={changepage}
-                                containerClassName={style.paginationbtn}
-                                previousLinkClassName={style.previousbtn}
-                                nextLinkClassName={style.nextbtn}
-                                disabledClassName={style.disable}
-                                activeClassName={style.activebtn}
-                                disableInitialCallback={false}
-                                />
-
+                                {pagination}
+                              
                             </div>
                         </div>
                     </div>
@@ -279,7 +310,14 @@ export default function Result(props) {
 
 
                 <TabPanel value="2">
-                    <div>faq</div>
+                    <div><a  target="_blank" href='https://www.clickdimensions.com/links/TestPDFfile.pdf'>link</a>
+                    <PDFViewer
+            document={{
+                url: 'https://www.clickdimensions.com/links/TestPDFfile.pdf',
+            }}
+        />
+                  
+                    </div>
                 </TabPanel>
                 
                 <TabPanel value="3">
