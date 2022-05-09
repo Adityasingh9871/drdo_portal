@@ -1,5 +1,6 @@
 import React,{useState,useEffect} from 'react'
 import style from './styling.module.css'
+import About from '../about_us/About'
 import axios from "axios"
 import Datalist from './Datalist'
 import ReactPaginate from 'react-paginate'
@@ -37,24 +38,7 @@ export default function Result(props) {
     const [temppages, settemppages] = useState([])
     const [iserror, setiserror] = useState(1)
 
-    // const [numPages, setnumPages] = useState(null)
-    // const [pageNumber, setpageNumber] = useState(1)
-
-    // const onDocumentLoadSuccess = ({ numPages }) => {
-	// 	setnumPages({numPages});
-	// };
-
-    // const goToPrevPage = () =>{
-    //     setpageNumber(pageNumber-1)
-    // }
-		
-	// const goToNextPage = () =>{
-    //     setpageNumber(pageNumber+1)
-    // }
-    
-
-
-    
+ 
 
     const get_serach_result=()=>{             //function to fetch results and total pages from db
 
@@ -65,6 +49,10 @@ export default function Result(props) {
           .then(res => {
             const data = res.data;
             setsearchresult(data)
+            if(res.data.length==0)
+            setiserror(404)
+            else
+            setiserror(100)
             //console.log(searchresult)
           }).catch((err)=>{
             if(err.response.status==404)
@@ -93,7 +81,6 @@ export default function Result(props) {
           .then(res => {
             const data1 = res.data;
             setsearchresult(data1) 
-            //console.log(searchresult)
           }).catch((err)=>{
               if(err.response.status==404)
               setiserror(404);
@@ -124,14 +111,7 @@ export default function Result(props) {
     useEffect(() => {
         console.log("Here: ", searchresult);
         setcurrentItems(searchresult.slice(itemOffset,endset))
-        console.log(currentItems)
-        //changepage();
-
-            
-            //setpages(temppages)
-            //console.log("pages="+pages)
-
-    }, [searchresult])
+    }, [searchresult,])
 
     useEffect(() => {
         
@@ -194,16 +174,7 @@ export default function Result(props) {
         setpagecount(Math.ceil(searchresult.length/15))
         
          
-        // axios.get(`http://localhost:3001/data2`,{
-        //     params:{item:to_be_searched,counter:counter_default}
-            
-        // })
-        //   .then(res => {
-        //     const data3 = res.data;
-        //     setsearchresult(data3)
-        //     console.log(searchresult)
-        //   })
-        // console.log("selected="+selected)
+     
     }
 
     const handle_key_press=(event)=>{
@@ -217,13 +188,13 @@ export default function Result(props) {
 
     if(iserror==404)
     {
-       var errorDisplay=<div>Nothing found</div> 
+       var errorDisplay=<div className={style.nothing}>Nothing found :(</div> 
        var pagination=<div></div>
     }
     
     else
     {
-        var errorDisplay=currentItems.map((data)=>(<Datalist key={data.id} title={data.title} url={data.url} author={data.author} year={data.year} publication={data.publication} />))
+        var errorDisplay=currentItems.map((data)=>(<Datalist key={data.id} title={data.title} url={data.url} author={data.author} year={data.year} publication={data.publication} pdflinks={data.Pdf_Links} />))
         var pagination=<div>
         <ReactPaginate
         breakLabel='...'
@@ -259,9 +230,9 @@ export default function Result(props) {
                 <AppBar position="static">
                 <TabList  onChange={handleChange} centered className={style.tablist} >
                     <Tab label="home" value="1" />
-                    <Tab label="FAQ" value="2" />
-                    <Tab label="About us" value="3" />
-                    <Tab label="Contact us" value="4" />
+                    {/* <Tab label="FAQ" value="2" /> */}
+                    <Tab label="About us" value="2" />
+                    <Tab label="Contact us" value="3" />
                 </TabList >
                 </AppBar>
                 
@@ -309,7 +280,7 @@ export default function Result(props) {
                 </TabPanel>
 
 
-                <TabPanel value="2">
+                {/* <TabPanel value="2">
                     <div><a  target="_blank" href='https://www.clickdimensions.com/links/TestPDFfile.pdf'>link</a>
                     <PDFViewer
             document={{
@@ -318,13 +289,13 @@ export default function Result(props) {
         />
                   
                     </div>
+                </TabPanel> */}
+                
+                <TabPanel value="2">
+                    <About />
                 </TabPanel>
                 
                 <TabPanel value="3">
-                    <div>about us</div>
-                </TabPanel>
-                
-                <TabPanel value="4">
                     <div>contact us</div>
                 </TabPanel>
 

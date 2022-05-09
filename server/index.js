@@ -36,8 +36,9 @@ app.get('/data', (req, res) => {
     const item = req.query.item
     var qry = "select * from data where author like '%"+item+"%' or title like '%"+item+"%' order by author ;"
     db.query(qry, (err, result) => {
-        if (err) {
-            console.log(err)
+        
+        if(err)
+        {
             return res.status(404).send("nothing found")
         }
         else {

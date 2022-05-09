@@ -23,6 +23,7 @@
     font-size: xx-large;
     font-family: 'ROBOTO';
     text-align: center;
+    cursor: pointer;
 }
 
 .logobox{
@@ -33,7 +34,7 @@
     transform: translateY(-50%);
     margin-left: 1rem;
     overflow: hidden;
-
+    
 }
 
 
@@ -57,5 +58,9 @@
     background-color: rgb(70, 201, 224);
     border-top-right-radius: 5%;
     border-bottom-right-radius: 5%;
+    cursor: pointer;
+}
+
+.logo{
     cursor: pointer;
 }

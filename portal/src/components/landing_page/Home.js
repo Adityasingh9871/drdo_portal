@@ -2,6 +2,7 @@ import React,{useState} from 'react'
 import {useNavigate} from "react-router-dom";
 import Landing from './Landing'
 import style from './landing.module.css'
+import img1 from '../../assets/img2.png'
 
 export default function Home() {
 
@@ -22,8 +23,9 @@ export default function Home() {
     return (
         <div>
             <div className={style.searchbox}>
+                <img src={img1} className={style.background} />
                 <div>
-                    <input type="search" placeholder="search"  className={style.searchbar} onChange={(e)=>setsearch_param(e.target.value)} onKeyPress={(e)=>handle_key_press(e)}></input>
+                    <input type="search" placeholder="Search"  className={style.searchbar} onChange={(e)=>setsearch_param(e.target.value)} onKeyPress={(e)=>handle_key_press(e)}></input>
                     <button  className={style.searchbtn} onClick={routeChange} >GO</button>
                 </div>
             

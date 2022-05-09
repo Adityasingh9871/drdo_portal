@@ -39,6 +39,7 @@
    transform: translateY(-50%);
    margin-right: 1rem;
    height: 70%;
+   cursor: pointer;
 
 }
 
@@ -53,11 +54,16 @@
 }
 
 .databox1{
-    height: 4rem;
+    height: 4.5rem;
 }
 
 .databox2 a{
     text-decoration: none;
+}
+
+.databox3{
+    height: fit-content;
+    display: flex;
 }
 
 .results{
@@ -202,5 +208,20 @@
 
 .i1:hover{
     background-color: rgb(201, 204, 204);
+
+}
+
+
+.pdfimg{
+    width: 30px;
+}
+
+.nothing{
+    font-size: xx-large;
+    text-transform: capitalize;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 30vh;
 
 }

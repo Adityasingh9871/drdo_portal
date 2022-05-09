@@ -1,0 +1,60 @@
+.aboutbox{
+    width: 100%;
+    height: 40vh;
+    background-color: rgb(255, 255, 255);
+    position: relative;
+    
+}
+
+.box{
+    padding: 40px;
+}
+
+.back1{
+    height: 40vh;
+    width: 100%;
+}
+
+
+.tag1{
+    font-size: 2.5rem;
+    font-family: 'ROBOTO';
+    position: absolute;
+    bottom: 3rem;
+    left: 1rem;
+    color: white;
+    
+
+}
+
+.description{
+    margin-top: 2rem;
+}
+
+.back{
+    width: 100%;
+    height: 10vh;
+
+}
+
+.backi{
+    width: 100%;
+    height: 40vh;
+}
+
+.visionbox{
+    background-color: rgb(255, 255, 255);
+    margin-top: 20px;
+}
+
+.tagv,.tagm{
+    font-family: 'ROBOTO';
+    font-size: 3rem;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.desc{
+    margin-left: 2rem;
+}
+
