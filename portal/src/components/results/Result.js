@@ -15,7 +15,6 @@ import instagram from '../../assets/instagram.png'
 import linkedin from '../../assets/linkedin.png'
 import twitter from '../../assets/twitter.png'
 import search from '../../assets/search.png'
-import PDFViewer from 'pdf-viewer-reactjs'
 
 //import { Document, Page,pdfjs } from 'react-pdf';
 //pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
@@ -229,10 +228,9 @@ export default function Result(props) {
                 
                 <AppBar position="static">
                 <TabList  onChange={handleChange} centered className={style.tablist} >
-                    <Tab label="home" value="1" />
-                    {/* <Tab label="FAQ" value="2" /> */}
+                    <Tab label="Result" value="1" />
                     <Tab label="About us" value="2" />
-                    <Tab label="Contact us" value="3" />
+                    {/* <Tab label="Contact us" value="3" /> */}
                 </TabList >
                 </AppBar>
                 
@@ -247,7 +245,7 @@ export default function Result(props) {
                                 <li onClick={oldest} className={style.i1}>oldest</li>
                                 
 
-                                <div className={style.sba1}>sort by alphabet</div>
+                                <div className={style.sba1}>sort by title</div>
                                 <li onClick={a_z} className={style.i1}>A-Z</li>
                                 <li onClick={z_a} className={style.i1}>Z-A</li>
 
@@ -279,25 +277,14 @@ export default function Result(props) {
                     </div>
                 </TabPanel>
 
-
-                {/* <TabPanel value="2">
-                    <div><a  target="_blank" href='https://www.clickdimensions.com/links/TestPDFfile.pdf'>link</a>
-                    <PDFViewer
-            document={{
-                url: 'https://www.clickdimensions.com/links/TestPDFfile.pdf',
-            }}
-        />
-                  
-                    </div>
-                </TabPanel> */}
                 
                 <TabPanel value="2">
                     <About />
                 </TabPanel>
                 
-                <TabPanel value="3">
+                {/* <TabPanel value="3">
                     <div>contact us</div>
-                </TabPanel>
+                </TabPanel> */}
 
 
                 
