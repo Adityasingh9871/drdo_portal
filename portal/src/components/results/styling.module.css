@@ -225,3 +225,26 @@
     top: 30vh;
 
 }
+
+.recomend{
+    position: absolute;
+    transform: translateY(.5rem);
+    left: 1vw;
+    top: 3.5rem;
+    z-index: 1;
+    height: fit-content;
+    width: 50vw;
+    background-color: rgb(218, 218, 218);
+    border-radius: .5rem;
+    padding: .2rem;
+    
+}
+
+.recitem{
+    margin-top: .2rem;
+    cursor: pointer;
+    background-color: rgb(234, 236, 238);
+    border-radius: .5rem;
+    padding: .5rem;
+    
+}

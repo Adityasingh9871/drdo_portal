@@ -3,6 +3,7 @@ import style from './styling.module.css'
 import About from '../about_us/About'
 import axios from "axios"
 import Datalist from './Datalist'
+import Recomend from '../landing_page/Recomend'
 import ReactPaginate from 'react-paginate'
 import {useLocation} from 'react-router-dom';
 import AppBar from '@material-ui/core/AppBar';
@@ -36,6 +37,11 @@ export default function Result(props) {
     const [pages, setpages] = useState([])
     const [temppages, settemppages] = useState([])
     const [iserror, setiserror] = useState(1)
+    const [focused, setfocused] = useState(false)
+    const [recomend, setrecomend] = useState([])
+
+    const onfocus = () => setfocused(true);
+    const onblur = () => setfocused(false);
 
  
 
@@ -70,6 +76,20 @@ export default function Result(props) {
   
 
 
+    }
+
+    const change=async (event)=>{
+        setto_be_searched(event)
+
+        axios.get(`http://localhost:3001/recomend`,{
+            params:{item:event}
+        })
+          .then(res => {
+            const data = res.data;
+            setrecomend(data)
+            //console.log(data)
+          })
+            
     }
 
     useEffect(()=>{
@@ -117,7 +137,10 @@ export default function Result(props) {
         console.log("temp="+temppages)
     }, [temppages])
 
-
+    useEffect(() => {
+        console.log(recomend)
+        
+    }, [recomend])
     
     
 
@@ -212,6 +235,9 @@ export default function Result(props) {
     </div>
     }
 
+    if(recomend.length!=0 && focused==true )
+    var rec=<div className={style.recomend}>{recomend.map(data=><Recomend title={data.title} />)}</div>
+
     
 
     return (
@@ -258,9 +284,9 @@ export default function Result(props) {
                         <div className={style.box1}>
 
                             <div className={style.searchbar}>
-                                <input type="text" className={style.search} onChange={(e)=>setto_be_searched(e.target.value)} onKeyPress={(e)=>handle_key_press(e)} placeholder={to_be_searched}></input>
+                                <input type="text" className={style.search} onBlur={onblur} onFocus={onfocus} onChange={(e)=>change(e.target.value)} onKeyPress={(e)=>handle_key_press(e)} placeholder={to_be_searched}></input>
                                 <img src={search} className={style.searchicon} onClick={get_serach_result} /> 
-                                
+                                {rec}
                             </div>
 
 
