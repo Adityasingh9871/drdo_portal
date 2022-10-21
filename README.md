@@ -23,5 +23,5 @@ step 7-write command (npm start)                              // it will start r
 </br></br>
 ![Screenshot (5)](https://user-images.githubusercontent.com/76525003/197215971-f1204375-acb0-4160-ac37-4b0ad025541c.png)
 ![Screenshot (6)](https://user-images.githubusercontent.com/76525003/197216197-c65e6fba-49bd-411d-b345-5f28408394a5.png)
-![Uploading Screenshot (7).png…]()
+![Screenshot (7)](https://user-images.githubusercontent.com/76525003/197216220-d9770f67-1dff-410c-a296-a7d1535eaf49.png)
 ![Screenshot (8)](https://user-images.githubusercontent.com/76525003/197216237-fa07724b-2de1-4bbc-81ab-6ad4efb93aa9.png)
